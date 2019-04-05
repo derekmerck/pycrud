@@ -16,7 +16,7 @@ addons:
 
 install:
   - pip install -r requirements.txt
-  - pip install package[celery]
+  - pip install ./package[celery]
 
 script:
   - cd tests
