@@ -24,7 +24,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     license='MIT',
-    install_requires=["attrs >= 18.1.0", "docker",
+    install_requires=["attrs >= 18.1.0", # "docker",
                       "python-dateutil", "redis"],
     extras_require={
         'celery': 'celery'

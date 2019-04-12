@@ -53,7 +53,7 @@ class Containerized(ABC):
 
     def stop_container(self):
         """
-        Stop the running container associated with this crud.
+        Stop the running container associated with this endpoint.
         """
 
         logger = logging.getLogger(self.dkr_name)
@@ -88,7 +88,7 @@ class Containerized(ABC):
 
     def stop_service(self):
         """
-        Stop the running swarm service associated with this crud.
+        Stop the running swarm service associated with this endpoint.
         """
 
         logger = logging.getLogger(self.dkr_name)

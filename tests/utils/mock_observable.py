@@ -9,6 +9,7 @@ class MockEventType(Enum):
     THIS = "this"
     THAT = "that"
 
+
 #: Observation format is (delay, event type, data payload)
 sample_observations = [
     (1, MockEventType.THIS, "first event (THIS)"),

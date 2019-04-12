@@ -9,7 +9,7 @@ from crud.celery import app
 app.config_from_object("celeryconfig")
 
 
-def test_persistence(ep):
+def check_for_endpoint(ep):
     """
     Generate a few items, stash them, and make sure they are
     persistent.
@@ -36,7 +36,7 @@ def test_persistence(ep):
         assert( item.epid in expected )
 
 
-if __name__ == "__main__":
+def test_persistence():
 
     logging.basicConfig(level=logging.DEBUG)
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                  Redis(clear=True, db=1),
                  Csv(item_ctype="SimpleItem")]
     for ep in endpoints:
-        test_persistence(ep)
+        check_for_endpoint(ep)
 
     Redis(clear=True, db=1)
 
@@ -52,4 +52,8 @@ if __name__ == "__main__":
                  DistRedis(db=1),
                  DistCsv(exclusive=False, item_ctype="SimpleItem")]
     for ep in endpoints:
-        test_persistence(ep)
+        check_for_endpoint(ep)
+
+
+if __name__ == "__main__":
+    test_persistence()

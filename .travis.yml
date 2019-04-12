@@ -6,6 +6,7 @@ python:
   - "3.6"
 services:
   - redis-server
+#  - docker
 
 addons:
   apt:
@@ -19,6 +20,5 @@ install:
   - pip install ./package[celery]
 
 script:
-  - cd tests
-  - celery -A crud worker --loglevel=info --config celeryconfig
-  - python test_ep_persistence.py
+  - celery -A crud worker --loglevel=info --config tests/celeryconfig
+  - pytest
