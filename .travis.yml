@@ -22,6 +22,8 @@ install:
   - pip install -r requirements.txt
   - pip install ./package
 
+after_install:
+  - celery -A crud worker --loglevel=info --config celeryconfig &
+
 script:
-  - celery -A crud worker --loglevel=info --config celeryconfig
   - pytest
