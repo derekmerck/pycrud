@@ -3,6 +3,10 @@ attrs >= 18.1.0
 python-dateutil
 redis
 
+# For distributed queues
+
+celery
+
 # For testing
 
 pytest

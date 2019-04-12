@@ -15,10 +15,13 @@ addons:
       - python3-setuptools
       - python3-pip
 
+env:
+  - PYTHONPATH="$TRAVIS_BUILD_DIR/tests"
+
 install:
   - pip install -r requirements.txt
-  - pip install ./package[celery]
+  - pip install ./package
 
 script:
-  - celery -A crud worker --loglevel=info --config tests/celeryconfig
+  - celery -A crud worker --loglevel=info --config celeryconfig
   - pytest
