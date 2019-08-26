@@ -7,10 +7,12 @@ import docker
 @attr.s
 class Containerized(ABC):
     """
-    Many test fixtures create disposable Docker services to mock platform
-    connectivity.  These are managed through the Containerized class.  This
-    class can be easily mixed into any endpoint, as demonstrated in the unit
-    test suite.
+    It can be useful for an endpoint to be able to instantiate a backend
+    service from its own state dictionary.
+
+    This class can be easily mixed into any endpoint, as demonstrated in the
+    unit test suite.   Many of the unit test fixtures create disposable Docker
+    services to mock platform connectivity.
 
     Includes methods for starting containers and swarm services.
     """

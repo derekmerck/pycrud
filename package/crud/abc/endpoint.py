@@ -3,7 +3,7 @@ CRUD Endpoint API
 """
 
 from abc import ABC
-from typing import Mapping, TypeVar, NewType, Union, Sequence, Iterator, Collection
+from typing import Mapping, TypeVar, NewType, Union, Sequence, Collection
 import logging
 import attr
 

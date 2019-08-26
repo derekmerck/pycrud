@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 
+
 # Add any serializing functions here
 def stringify(obj):
     if isinstance(obj, str):
@@ -18,7 +19,6 @@ def stringify(obj):
         return obj.hexdigest()
 
 
-
 class SmartJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         out = stringify(obj)
@@ -26,5 +26,3 @@ class SmartJSONEncoder(json.JSONEncoder):
             return out
 
         return json.JSONEncoder.default(self, obj)
-
-

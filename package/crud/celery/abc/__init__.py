@@ -1,1 +1,1 @@
-from .distributed import DistributedMixin, LockingGatwayMixin
+from .distributed import DistributedMixin, LockingGatewayMixin

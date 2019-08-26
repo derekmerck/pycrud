@@ -1,11 +1,11 @@
 import attr
 from ...endpoints import Pickle as BasePickle
 from ...gateways import PickleGateway as BasePickleGateway
-from ..abc.distributed import DistributedMixin, LockingGatwayMixin
+from ..abc.distributed import DistributedMixin, LockingGatewayMixin
 
 
 @attr.s
-class LockingPickleGateway(BasePickleGateway, LockingGatwayMixin):
+class LockingPickleGateway(BasePickleGateway, LockingGatewayMixin):
     pass
 
 

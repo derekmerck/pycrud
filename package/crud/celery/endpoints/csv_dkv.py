@@ -1,11 +1,11 @@
 import attr
 from ...endpoints import Csv as BaseCsvKV
 from ...gateways import CsvGateway as BaseCsvGateway
-from ..abc.distributed import DistributedMixin, LockingGatwayMixin
+from ..abc.distributed import DistributedMixin, LockingGatewayMixin
 
 
 @attr.s
-class LockingCsvGateway(BaseCsvGateway, LockingGatwayMixin):
+class LockingCsvGateway(BaseCsvGateway, LockingGatewayMixin):
     pass
 
 

@@ -57,3 +57,21 @@ class RedisKV(Endpoint, Serializable):
         item_flat = item.json()
         key = "{}{}".format(self.prefix, item_id).encode("utf-8")
         self.gateway.set(key, item_flat)
+
+    def sget(self, skey: str):
+
+        item_ids = self.gateway.smembers(skey.encode("utf-8"))
+        result = []
+        for item_id in item_ids:
+            result.append(self.get(item_id))
+        return result
+
+    def sput(self, item: Union[Item, ItemID], skey: str):
+
+        self.put(item)
+        if hasattr(item, "epid"):
+            item_id = item.epid
+        else:
+            item_id = item
+        self.gateway.sadd(skey.encode("utf-8"), item_id)
+

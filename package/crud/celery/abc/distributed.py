@@ -8,7 +8,7 @@ from ...abc import Serializable, Item, ItemID, Query
 
 
 @attr.s
-class LockingGatwayMixin(Serializable):
+class LockingGatewayMixin(Serializable):
     """Lock for file load/dump functions"""
 
     def __getattribute__(self, name):

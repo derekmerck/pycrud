@@ -31,7 +31,7 @@ class Event(object):
 class ObservableMixin(ABC):
     """
     API for event polling and changes methods.  Useful for extending the generic
-    CRUD endpoint so that it can be attended by the watcher class.
+    CRUD endpoint with "changes", so that it can be attended by the watcher class.
     """
 
     event_queue = attr.ib( init=False, factory=Queue )
