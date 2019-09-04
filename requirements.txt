@@ -3,12 +3,11 @@ attrs >= 18.1.0
 python-dateutil
 redis
 pyyaml
+jinja2
 
 # For distributed queues
-
 celery
 
 # For testing
-
 pytest
 interruptingcow

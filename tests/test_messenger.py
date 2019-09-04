@@ -1,6 +1,6 @@
 import logging
 from crud.endpoints import SMPTMessenger
-from crud.endpoints.smpt_messenger import sample_msg
+from crud.endpoints.smtp_messenger import sample_msg
 
 exp1 = """To: abc@example.com
 From: admin@smtp.example.com
