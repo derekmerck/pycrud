@@ -4,6 +4,8 @@ python-dateutil
 redis
 pyyaml
 jinja2
+bs4
+lxml
 
 # For distributed queues
 celery
