@@ -27,7 +27,10 @@ setuptools.setup(
     install_requires=["attrs >= 18.1.0",
                       "python-dateutil",
                       "redis",
-                      "pyyaml"],
+                      "pyyaml",
+                      "jinja2",
+                      "bs4",
+                      "lxml"],
     extras_require={
         'celery': 'celery'
     }
