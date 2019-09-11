@@ -1,4 +1,5 @@
-from multiprocessing import Queue
+import logging
+from queue import Queue
 from abc import ABC
 import attr
 
@@ -15,6 +16,8 @@ class DaemonMixin(ABC):
         raise NotImplementedError
 
     def handle_queue(self, dryrun=False):
+        logger = logging.getLogger(self.__class__.__name__)
+        logger.debug("Handling queue ({})".format(self.job_queue.empty()))
         while not self.job_queue.empty():
             item = self.job_queue.get()
             self.handle_item(item, dryrun=dryrun)

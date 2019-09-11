@@ -65,7 +65,7 @@ class AttrSerializable(ABC):
         def create(cls, **kwargs):
             ctype = kwargs.pop('ctype')
             if not ctype:
-                raise TypeError("No ctype, cannot instantiate")
+                raise EndpointFactoryException("No ctype, cannot instantiate")
 
             # Anything that has been "asdict" serialized will be registered
             _cls = cls.registry.get(ctype)
@@ -73,7 +73,7 @@ class AttrSerializable(ABC):
                 # Voodoo for unregistered root objects
                 _cls = inspect.stack()[1][0].f_globals.get(ctype)
             if not _cls:
-                raise TypeError("No class {} is registered, cannot instantiate".format(ctype))
+                raise EndpointFactoryException("No class {} is registered, cannot instantiate".format(ctype))
             for k, v in kwargs.items():
                 if hasattr(v, "keys"):
                     for kk, vv in v.items():
