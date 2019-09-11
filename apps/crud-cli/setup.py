@@ -1,12 +1,12 @@
 import setuptools, re
 
-with open("../README.md") as f:
+with open("README.md") as f:
     long_description = f.read()
 
-with open("../requirements.txt") as f:
+with open("requirements.txt") as f:
     reqs = f.read().splitlines()
 
-with open("crud/__init__.py") as f:
+with open("crud_cli/__init__.py") as f:
     content = f.read()
     match = re.findall(r"__([a-z0-9_]+)__\s*=\s*\"([^\"]+)\"", content)
     print(match)
@@ -20,6 +20,7 @@ setuptools.setup(
     description=metadata.get("desc"),
     url=metadata.get("url"),
     long_description=long_description,
+    long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     classifiers=(
         'Development Status :: 3 - Alpha',
@@ -29,7 +30,9 @@ setuptools.setup(
     ),
     license='MIT',
     install_requires=reqs,
-    extras_require={
-        'celery': 'celery'
-    }
+
+    entry_points='''
+        [console_scripts]
+        crud-cli=crud_cli.cli:main
+    ''',
 )
