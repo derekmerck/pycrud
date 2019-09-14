@@ -19,6 +19,8 @@ class EndpointManager(object):
                    type=[Union[str, PathLike, TextIO]])    # yaml formatted files
     json = attr.ib(default=None,
                    type=str)  # json formatted strings
+    yaml = attr.ib(default=None,
+                   type=str)  # yaml formatted strings
 
     ep_descs = attr.ib(init=False)     # flat endpoints
     @ep_descs.default
@@ -37,7 +39,11 @@ class EndpointManager(object):
                 with open(self.file) as f:
                     load_descs(f)
         if self.json:
-            ep_descs.update(json.loads(self.json))
+            _json = os.path.expandvars(self.json)
+            ep_descs.update(json.loads(_json))
+        if self.yaml:
+            _yaml = os.path.expandvars(self.yaml)
+            ep_descs.update(yaml.load(_yaml))
         return ep_descs
 
     def get(self, key, check=False):
