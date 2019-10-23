@@ -4,4 +4,4 @@ from .observable import Event, ObservableMixin
 from .daemon import DaemonMixin
 from .serializable import AttrSerializable as Serializable
 from .watcher import Watcher, Trigger
-from .exceptions import *
+from ..exceptions import *

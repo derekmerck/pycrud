@@ -1,5 +1,6 @@
 import logging
 import json
+from pprint import pformat
 from typing import Mapping, List
 from datetime import datetime
 import attr
@@ -49,9 +50,9 @@ class Splunk(Endpoint, Serializable):
 
     def find(self,
              query: str,
-             time_interval=None) -> List[Item]:
+             time_range=None) -> List[Item]:
 
-        ret = self.gateway.find_events(query, time_interval)
+        ret = self.gateway.find_events(query, time_range)
 
         logging.debug("Splunk query: {}".format(query))
         logging.debug("Splunk results: {}".format(ret))
@@ -100,3 +101,22 @@ class Splunk(Endpoint, Serializable):
 
         # Real auth description
         # headers = {'Authorization': 'Splunk {0}'.format(self.hec_tok[hec])}
+
+    def check(self):
+
+        logger = logging.getLogger(self.name)
+        logger.debug("Check")
+
+        r = self.gateway.info()
+
+        if r:
+            logger.info("Service available")
+            logger.debug(pformat(r))
+            return True
+
+        logger.warning("Service unavailble")
+
+
+
+
+Serializable.Factory.registry["Splunk"] = Splunk

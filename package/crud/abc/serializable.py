@@ -1,10 +1,12 @@
 from abc import ABC
-import json, inspect
+import json
+import inspect
+import yaml
 from hashlib import sha1
 import attr
 from dateutil import parser as DateTimeParser
 from ..utils import SmartJSONEncoder
-from .exceptions import EndpointFactoryException
+from ..exceptions import EndpointFactoryException
 
 
 @attr.s(cmp=False, hash=False)

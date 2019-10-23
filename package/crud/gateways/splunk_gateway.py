@@ -30,17 +30,21 @@ class SplunkGateway(Requester):
     def set_hostname(self):
         return socket.gethostname()
 
-    def find_events(self, q, timerange=None):
+    def info(self):
+        r = self._get("services/server/info", params={'output_mode': 'json'})
+        return r
+
+    def find_events(self, q, time_range=None):
         logger = logging.getLogger(self.name)
 
-        if not timerange:
+        if not time_range:
             earliest = "-1d"
             latest = "now"
         else:
-            earliest = (timerange.earliest - timedelta(minutes=2)).isoformat()
-            latest = (timerange.latest + timedelta(minutes=2)).isoformat()
+            earliest = time_range[0].isoformat()
+            latest   = time_range[1].isoformat()
 
-        # self.logger.debug("Earliest: {}\n           Latest:   {}".format(earliest, latest))
+        logger.debug("Earliest: {}\nLatest: {}".format(earliest, latest))
 
         response = self._post('services/search/jobs',
                              data = {'search': q,
