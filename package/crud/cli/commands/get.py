@@ -1,15 +1,18 @@
+from typing import Mapping, List
 import click
-from crud.cli.utils import validate_endpoint, validate_dict, validate_array
+from crud.abc import Endpoint
+from crud.cli.utils import CLICK_ENDPOINT, CLICK_MAPPING, CLICK_ARRAY
 
 
-@click.command(short_help="Get items from endpoint for chaining")
-@click.argument("source", callback=validate_endpoint, type=click.STRING)
-@click.argument("items", callback=validate_array, type=click.STRING)  # oid or fn
-@click.option("-k", "--kwargs", callback=validate_dict, type=click.STRING,
+@click.command()
+@click.argument("source", type=CLICK_ENDPOINT)
+@click.argument("items", type=CLICK_ARRAY)  # oid or fn
+@click.option("-k", "--kwargs", type=CLICK_MAPPING,
               help="""kwargs dict as yaml/json format string or @file.yaml, i.e., '{"level": "series"}'""")
-@click.option("-b", "--binary", help="Get binary file as well as data", is_flag=True, default=False)
+@click.option("-b", "--binary", is_flag=True, default=False,
+              help="Get binary file as well as data")
 @click.pass_context
-def cli(ctx, source, items, kwargs, binary):
+def get(ctx, source: Endpoint, items: List, kwargs: Mapping, binary: bool):
     """Get items from endpoint for chaining"""
     click.echo(click.style('Get Items from Endpoint', underline=True, bold=True))
 

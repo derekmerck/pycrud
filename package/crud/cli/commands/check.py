@@ -1,11 +1,12 @@
 import click
-from crud.cli.utils import validate_endpoint
+from crud.abc import Endpoint
+from crud.cli.utils import CLICK_ENDPOINT
 
 
 @click.command(short_help="Check endpoint status")
-@click.argument("endpoint", callback=validate_endpoint, type=click.STRING)
+@click.argument("endpoint", type=CLICK_ENDPOINT)
 @click.pass_context
-def cli(ctx, endpoint):
+def check(ctx, endpoint: Endpoint):
     """Check endpoint status
 
     \b

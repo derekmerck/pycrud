@@ -1,21 +1,21 @@
-import yaml
+from typing import Mapping, List
 import click
-from pprint import pformat
-from crud.cli.utils import validate_array, validate_dict, validate_endpoint
+from crud.abc import Endpoint
+from crud.cli.utils import CLICK_ENDPOINT, CLICK_MAPPING, CLICK_ARRAY
 
 
 @click.command(short_help="Call endpoint method")
-@click.argument('endpoint', callback=validate_endpoint, type=click.STRING)
+@click.argument('endpoint', type=CLICK_ENDPOINT)
 @click.argument('method',   type=click.STRING)
-@click.option('--args',    '-g', type=click.STRING, callback=validate_array,
+@click.option('--args',    '-g', type=CLICK_ARRAY,
               help="Arguments as comma or newline separated or @file.txt format")
-@click.option('--mapargs', '-m', type=click.STRING, callback=validate_dict,
+@click.option('--mapargs', '-m', type=CLICK_MAPPING,
               help="Mapping-type arguments as json or @file.yaml format")
-@click.option('--kwargs',  '-k', type=click.STRING, callback=validate_dict,
+@click.option('--kwargs',  '-k', type=CLICK_MAPPING,
               help="Keyword arguments as json or @file.yaml format")
 @click.pass_context
-def cli(ctx, endpoint, method, args, mapargs, kwargs):
-    """Call an arbitrary endpoint method with *args or *mapargs and **kwargs.
+def do(ctx, endpoint: Endpoint, method, args: List, mapargs: Mapping, kwargs: Mapping):
+    """Call an arbitrary endpoint method with *args, *mapargs, and **kwargs
 
     \b
     $ crud-cli do redis check
@@ -31,9 +31,8 @@ def cli(ctx, endpoint, method, args, mapargs, kwargs):
         if not ctx.obj.get("items"):
             ctx.obj["items"] = []
 
-        for arg in [*args, *mapargs]:
-            out = getattr(endpoint, method)(arg, **kwargs)
-            ctx.obj["items"].append(out)
+        out = getattr(endpoint, method)(*args, mapargs, **kwargs)
+        ctx.obj["items"].append(out)
 
     else:
         click.echo(click.style("No such method {}".format(method), fg="red"))

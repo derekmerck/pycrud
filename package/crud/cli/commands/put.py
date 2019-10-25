@@ -1,13 +1,13 @@
 import click
-from crud.cli.utils import validate_endpoint, validate_dict
+from crud.cli.utils import CLICK_ENDPOINT, CLICK_MAPPING
 
 
 @click.command(short_help="Put chained items in endpoint")
-@click.argument("dest", callback=validate_endpoint, type=click.STRING)
-@click.option("-k", "--kwargs", callback=validate_dict, type=click.STRING,
+@click.argument("dest", type=CLICK_ENDPOINT)
+@click.option("-k", "--kwargs", type=CLICK_MAPPING,
               help="""kwargs dict as yaml/json format string or @file.yaml, i.e., '{"level": "series"}'""")
 @click.pass_context
-def cli(ctx, dest, kwargs):
+def put(ctx, dest, kwargs):
     """Put chained items in endpoint"""
     click.echo(click.style('Putting Items in Dest', underline=True, bold=True))
     for item in ctx.obj.get("items", []):

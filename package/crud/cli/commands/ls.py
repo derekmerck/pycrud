@@ -3,7 +3,7 @@ import click
 
 @click.command(short_help="List all services and health")
 @click.pass_context
-def cli(ctx):
+def ls(ctx):
     """List all services and health
 
     \b

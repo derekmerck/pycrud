@@ -2,10 +2,10 @@ from pprint import pformat
 import click
 
 
-@click.command(short_help="Print chained items to stdout")
+@click.command(name="print")
 @click.argument("_format", type=click.Choice(['plain', 'jsonl', 'csv']), default="plain")
 @click.pass_context
-def cli(ctx, _format):
+def _print(ctx, _format):
     """Print chained items to stdout"""
     click.echo(click.style('Printing Items', underline=True, bold=True))
     for item in ctx.obj.get("items", []):

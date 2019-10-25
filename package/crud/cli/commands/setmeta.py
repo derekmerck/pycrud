@@ -1,11 +1,11 @@
 import click
-from crud.cli.utils import validate_dict
+from crud.cli.utils import CLICK_MAPPING
 
 
 @click.command()
-@click.argument("update_dict", type=click.STRING, callback=validate_dict)
+@click.argument("update_dict", type=CLICK_MAPPING)
 @click.pass_context
-def cli(ctx, update_dict):
+def setmeta(ctx, update_dict):
     """Set metadata kvs for chained items"""
     click.echo(click.style('Set metadata key value pairs', underline=True, bold=True))
 
