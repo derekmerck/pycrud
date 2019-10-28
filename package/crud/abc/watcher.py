@@ -56,7 +56,12 @@ class Watcher(ABC):
     def stop(self):
         if self.sources:
             for source in self.sources.values():
-                source.proc.terminate()
+                if hasattr(source.proc, "terminate"):
+                    source.proc.terminate()
+
+    def __del__(self):
+        print("Destroying watcher")
+        self.stop()
 
     def run(self):
 
