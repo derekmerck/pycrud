@@ -3,7 +3,6 @@ import click
 from crud.abc import Endpoint
 from crud.cli.utils import CLICK_ENDPOINT, CLICK_MAPPING, CLICK_ARRAY
 
-
 @click.command()
 @click.argument("source", type=CLICK_ENDPOINT)
 @click.argument("items", type=CLICK_ARRAY)  # oid or fn
@@ -20,5 +19,6 @@ def get(ctx, source: Endpoint, items: List, kwargs: Mapping, binary: bool):
         ctx.obj["items"] = []
 
     for item in items:
+        print(kwargs)
         _item = source.get(item, file=binary, **kwargs)
         ctx.obj["items"].append(_item)

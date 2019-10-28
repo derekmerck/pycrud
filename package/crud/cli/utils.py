@@ -6,6 +6,13 @@ from crud.utils import deserialize_dict, deserialize_array
 from crud.exceptions import EndpointFactoryException
 
 
+def import_cmds(cli, cmds):
+    for item in dir(cmds):
+        if not item.startswith("__"):
+            cmd = getattr(cmds, item)
+            cli.add_command(cmd)
+
+
 class ClickMapping(click.ParamType):
     name = "mapping"
 
