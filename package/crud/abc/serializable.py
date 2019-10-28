@@ -1,7 +1,7 @@
 from abc import ABC
 import json
 import inspect
-import yaml
+import logging
 from hashlib import sha1
 import attr
 from dateutil import parser as DateTimeParser
@@ -75,12 +75,16 @@ class AttrSerializable(ABC):
                 # Voodoo for unregistered root objects
                 _cls = inspect.stack()[1][0].f_globals.get(ctype)
             if not _cls:
-                raise EndpointFactoryException("No class {} is registered, cannot instantiate".format(ctype))
+                raise EndpointFactoryException(f"No class {ctype} is registered, cannot instantiate")
             for k, v in kwargs.items():
                 if hasattr(v, "keys"):
                     for kk, vv in v.items():
                         if "DateTime" in kk:
-                            v[kk] = DateTimeParser.parse(vv)
+                            try:
+                                v[kk] = DateTimeParser.parse(vv)
+                            except:
+                                logging.warning(f"Failed to parse dt from {kk}: {vv}")
+                                pass
 
             return _cls(**kwargs)
 
