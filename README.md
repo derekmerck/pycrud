@@ -1,8 +1,9 @@
 # Python-CRUD
 
 Derek Merck  
-University of Florida at Gainesville  
-Summer 2019  
+<derek.merck@ufl.edu>  
+University of Florida and Shands Hospital  
+Gainesville, FL  
 
 Python framework for implementing CRUD (create, retrieve, update, delete) service endpoints and management daemons.  Supports distributed task management with [celery[].
 
