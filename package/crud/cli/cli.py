@@ -71,6 +71,7 @@ try:
     from ..abc import Serializable
     Serializable.Factory.registry["Orthanc"] = Orthanc
     Serializable.Factory.registry["DcmDir"] = DcmDir
+    Serializable.Factory.registry["Montage"] = Montage
 except ImportError:
     pass
 
