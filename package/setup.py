@@ -1,9 +1,9 @@
 import setuptools, re
 
-with open("../README.md") as f:
+with open("README.md") as f:
     long_description = f.read()
 
-with open("../requirements.txt") as f:
+with open("requirements.txt") as f:
     reqs = f.read().splitlines()
 
 with open("crud/__init__.py") as f:
