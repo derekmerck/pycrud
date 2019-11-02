@@ -75,3 +75,5 @@ class RedisKV(Endpoint, Serializable):
             item_id = item
         self.gateway.sadd(skey.encode("utf-8"), item_id)
 
+
+RedisKV.register("Redis")

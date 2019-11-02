@@ -5,4 +5,4 @@ from .ls import ls
 from .print import _print as print
 from .put import put
 from .setmeta import setmeta
-# from .verify import
+from .verify import verify

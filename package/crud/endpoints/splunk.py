@@ -117,6 +117,4 @@ class Splunk(Endpoint, Serializable):
         logger.warning("Service unavailble")
 
 
-
-
-Serializable.Factory.registry["Splunk"] = Splunk
+Splunk.register()

@@ -19,6 +19,8 @@ def get(ctx, source: Endpoint, items: List, kwargs: Mapping, binary: bool):
         ctx.obj["items"] = []
 
     for item in items:
-        print(kwargs)
+        if not kwargs:
+            kwargs = {}
         _item = source.get(item, file=binary, **kwargs)
+        click.echo(f"Getting {item}")
         ctx.obj["items"].append(_item)

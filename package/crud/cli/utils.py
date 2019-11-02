@@ -17,6 +17,7 @@ class ClickMapping(click.ParamType):
     name = "mapping"
 
     def convert(self, value, param, ctx) -> Mapping:
+        # print(f"Kwargs is {value}")
         if not value:
             return {}
         try:

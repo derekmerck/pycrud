@@ -6,3 +6,5 @@ pyyaml
 jinja2
 bs4
 lxml
+gistsig @ git+https://github.com/derekmerck/gistsig
+

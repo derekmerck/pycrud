@@ -69,7 +69,7 @@ try:
     from diana.apis import *
     from diana.dixel import *
     from ..abc import Serializable
-    Serializable.Factory.registry["Orthanc"] = Orthanc
+    # Serializable.Factory.registry["Orthanc"] = Orthanc
     Serializable.Factory.registry["DcmDir"] = DcmDir
     Serializable.Factory.registry["Montage"] = Montage
 except ImportError:
@@ -100,7 +100,8 @@ def cli(ctx, verbose, services):
         logging.basicConfig(level=logging.WARNING)
 
     if verbose:
-        click.echo("Using services: {}".format(services))
+        click.echo("Using services:")
+        click.echo(pformat(services))
 
     # Runner does not instantiate ctx properly
     if not ctx.obj:

@@ -1,11 +1,15 @@
 import json
 from datetime import timedelta
+from pathlib import PosixPath
 
 
 # Add any serializing functions here
 def stringify(obj):
     if isinstance(obj, str):
         return obj
+
+    if isinstance(obj, PosixPath):
+        return str(obj)
 
     # Handle DateTime objects
     if hasattr(obj, "isoformat"):
@@ -17,6 +21,10 @@ def stringify(obj):
     # Handle hashes
     if hasattr(obj, 'hexdigest'):
         return obj.hexdigest()
+
+    # Handle bytes from pydicom
+    if isinstance(obj, bytes):
+        return obj.decode("utf8", "ignore")
 
 
 class SmartJSONEncoder(json.JSONEncoder):
