@@ -12,9 +12,10 @@ def _print(ctx, _format):
 
         if not hasattr(item, "asdict") and not hasattr(item, "json"):
         # if not isinstance(item, Serializable):
-            raise TypeError("Can not dump non-serializable item-type")
+            s = item
+            # raise TypeError("Can not dump non-serializable item-type")
 
-        if _format=="plain":
+        elif _format=="plain":
             s = pformat(item.asdict())
 
         elif _format=="jsonl":
