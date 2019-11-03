@@ -31,10 +31,6 @@ def do(ctx, endpoint: Endpoint, method, args: List = [], mapargs: Mapping = {}, 
         if not ctx.obj.get("items"):
             ctx.obj["items"] = []
 
-        # if not args:
-        #     args = []
-        # if not kwargs:
-        #     kwargs = {}
         if mapargs:
             args.append(mapargs)
 
