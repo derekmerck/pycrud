@@ -2,7 +2,7 @@ from typing import Union
 import logging
 import json
 import attr
-from redis import Redis as RedisHandler
+from redis import Redis as RedisHandler, ConnectionError as RedisConnectionError
 from ..abc import Endpoint, Serializable, Item, ItemID
 
 
@@ -42,21 +42,44 @@ class RedisKV(Endpoint, Serializable):
 
         if hasattr(item, "epid"):
             item_id = item.epid
+            key = "{}{}".format(self.prefix, item_id).encode("utf-8")
         else:
-            item_id = item
+            key = item
 
-        key = "{}{}".format(self.prefix, item_id).encode("utf-8")
-        logging.debug(key)
+        logging.debug(f"getting key={key}")
         item_flat = self.gateway.get(key)
-        item_dict = json.loads(item_flat)
-        item = Serializable.Factory.create(**item_dict)
-        return item
+        if item_flat:
+            item_dict = json.loads(item_flat)
+            if isinstance(item_dict, dict):
+                rv = Serializable.Factory.create(**item_dict)
+            else:
+                rv = item_dict
+            logging.debug(f"found value={rv}")
+            return rv
 
     def put(self, item: Item, *args, **kwargs):
-        item_id = item.epid
-        item_flat = item.json()
+
+        if hasattr(item, "epid"):
+            item_id = item.epid
+            item_flat = item.json()
+        else:
+            item_id = hash(item)
+            item_flat = f"\"{item}\""  # Minimal json wrapper
+
         key = "{}{}".format(self.prefix, item_id).encode("utf-8")
         self.gateway.set(key, item_flat)
+        return key
+
+    def delete(self, item: Union[Item, ItemID], **kwargs):
+        if hasattr(item, "epid"):
+            item_id = item.epid
+            key = "{}{}".format(self.prefix, item_id).encode("utf-8")
+        else:
+            key = item
+
+        print(key)
+
+        self.gateway.delete(key)
 
     def sget(self, skey: str):
 
@@ -74,6 +97,19 @@ class RedisKV(Endpoint, Serializable):
         else:
             item_id = item
         self.gateway.sadd(skey.encode("utf-8"), item_id)
+
+    def check(self):
+        logger = logging.getLogger(self.name)
+        logger.debug("EP CHECK")
+
+        try:
+            info = self.gateway.info()
+            logger.debug(info)
+            return info is not None
+        except RedisConnectionError as e:
+            logger.error("Failed to connect to Redis EP")
+            logger.error(e)
+            return False
 
 
 RedisKV.register("Redis")

@@ -20,7 +20,7 @@ class EndpointManager(object):
     def set_descs(self):
         # if not self.serialized_ep_descs:
         #     raise ValueError("No descs or serialized descs provided!")
-        return deserialize_dict(self.serialized_ep_descs)
+        return deserialize_dict(self.serialized_ep_descs) or {}
 
     prefixes = {}
 

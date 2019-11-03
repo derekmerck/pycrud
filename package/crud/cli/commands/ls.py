@@ -17,4 +17,9 @@ def ls(ctx, health_check):
             avail = ep.check()
         else:
             avail = "Unknown"
-        click.echo("{}: {}".format(ep.name, avail))
+
+        s = "{}: {}".format(ep.name, "Ready" if avail else "Unavailable")
+        if avail:
+            click.echo(click.style(s, fg="green"))
+        else:
+            click.echo(click.style(s, fg="red"))

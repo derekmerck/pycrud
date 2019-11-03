@@ -1,3 +1,4 @@
+from .delete import delete
 from .do import do
 from .check import check
 from .get import get

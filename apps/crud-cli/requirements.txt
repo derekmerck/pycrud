@@ -1,3 +1,0 @@
-click
-gistsig @ git+https://github.com/derekmerck/gistsig
-python-crud @ git+https://github.com/derekmerck/pycrud#subdirectory=package
