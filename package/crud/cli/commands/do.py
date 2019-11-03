@@ -14,7 +14,7 @@ from crud.cli.utils import CLICK_ENDPOINT, CLICK_MAPPING, CLICK_ARRAY
 @click.option('--kwargs',  '-k', type=CLICK_MAPPING,
               help="Keyword arguments as json or @file.yaml format")
 @click.pass_context
-def do(ctx, endpoint: Endpoint, method, args: List, mapargs: Mapping, kwargs: Mapping):
+def do(ctx, endpoint: Endpoint, method, args: List = [], mapargs: Mapping = {}, kwargs: Mapping = {}):
     """Call an arbitrary endpoint method with *args, *mapargs, and **kwargs
 
     \b
